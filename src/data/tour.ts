@@ -4,7 +4,9 @@ export type TourDate = {
   id: string
   city: string
   venue: string
-  day: string
+  weekday: string
+  dayNum: string
+  month: string
 }
 
 export type Tour = {
@@ -19,11 +21,15 @@ export const tour: Tour = {
   ticketType: 'General admission, standing',
   priceGBP: 65,
   dates: [
-    { id: 'glasgow-mon', city: 'Glasgow', venue: 'Ovo Hydro', day: 'Mon 12 Oct' },
-    { id: 'london-fri', city: 'London', venue: 'The O2', day: 'Fri 16 Oct' },
-    { id: 'london-sat', city: 'London', venue: 'The O2', day: 'Sat 17 Oct' },
-    { id: 'amsterdam-mon', city: 'Amsterdam', venue: 'Ziggo Dome', day: 'Mon 19 Oct' },
+    { id: 'glasgow-mon', city: 'Glasgow', venue: 'Ovo Hydro', weekday: 'Monday', dayNum: '12', month: 'Oct' },
+    { id: 'london-fri', city: 'London', venue: 'The O2', weekday: 'Friday', dayNum: '16', month: 'Oct' },
+    { id: 'london-sat', city: 'London', venue: 'The O2', weekday: 'Saturday', dayNum: '17', month: 'Oct' },
+    { id: 'amsterdam-mon', city: 'Amsterdam', venue: 'Ziggo Dome', weekday: 'Monday', dayNum: '19', month: 'Oct' },
   ],
+}
+
+export function formatDate(date: TourDate): string {
+  return `${date.weekday} ${date.dayNum} ${date.month}`
 }
 
 export const initialAvailability: Record<string, Availability> = {

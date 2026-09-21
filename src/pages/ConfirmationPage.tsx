@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { tour } from '../data/tour'
+import { formatDate, tour } from '../data/tour'
 import { useAppState } from '../state/AppState'
 
 export default function ConfirmationPage() {
@@ -25,15 +25,15 @@ export default function ConfirmationPage() {
         ✓
       </div>
       <div>
-        <h1 className="text-xl font-bold text-brand-900">You're going!</h1>
-        <p className="text-brand-600">One ticket set, one date.</p>
+        <h1 className="text-xl font-extrabold text-ink">You're going!</h1>
+        <p className="text-brand-700">One ticket set, one date.</p>
       </div>
 
-      <div className="rounded-xl border border-brand-200 bg-white p-5">
-        <p className="text-lg font-semibold text-brand-900">
-          {confirmedDate.city} · {confirmedDate.day}
+      <div className="rounded-xl bg-white p-5 shadow-sm ring-1 ring-brand-200">
+        <p className="text-lg font-bold text-ink">{formatDate(confirmedDate)}</p>
+        <p className="text-brand-700">
+          {confirmedDate.city} · {confirmedDate.venue}
         </p>
-        <p className="text-brand-600">{confirmedDate.venue}</p>
         <p className="mt-2 text-brand-700">
           {buyer.quantity} × GA ticket{buyer.quantity > 1 ? 's' : ''} · £
           {tour.priceGBP * buyer.quantity}
@@ -41,7 +41,7 @@ export default function ConfirmationPage() {
       </div>
 
       {releasedDates.length > 0 && (
-        <p className="text-sm text-brand-600">
+        <p className="text-sm text-brand-700">
           The other dates you selected ({releasedDates.map((d) => d.city).join(', ')}) have been
           released back for other fans.
         </p>
@@ -50,7 +50,7 @@ export default function ConfirmationPage() {
       <button
         type="button"
         onClick={() => navigate('/')}
-        className="min-h-[44px] w-full rounded-md bg-brand-600 px-4 py-3 font-semibold text-white hover:bg-brand-700"
+        className="min-h-[44px] w-full rounded-full bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700"
       >
         Back to event page
       </button>

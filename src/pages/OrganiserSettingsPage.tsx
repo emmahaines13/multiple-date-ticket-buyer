@@ -1,5 +1,6 @@
 import { tour } from '../data/tour'
 import { useAppDispatch, useAppState } from '../state/AppState'
+import DateBadge from '../components/DateBadge'
 
 export default function OrganiserSettingsPage() {
   const state = useAppState()
@@ -16,15 +17,15 @@ export default function OrganiserSettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-brand-900">Organiser settings</h1>
-        <p className="text-brand-600">
+        <h1 className="text-xl font-extrabold text-ink">Organiser settings</h1>
+        <p className="text-brand-700">
           Controls the flexible request pool for {tour.name}. Changes here affect what buyers see
           on the setup screen.
         </p>
       </div>
 
-      <label className="flex min-h-[44px] items-center justify-between rounded-lg border border-brand-200 bg-white p-4">
-        <span className="font-medium text-brand-900">Enable flexible ("any of these dates")</span>
+      <label className="flex min-h-[44px] items-center justify-between rounded-lg bg-white p-4 shadow-sm ring-1 ring-brand-200">
+        <span className="font-bold text-ink">Enable flexible ("any of these dates")</span>
         <input
           type="checkbox"
           className="h-5 w-5 accent-brand-600"
@@ -36,17 +37,16 @@ export default function OrganiserSettingsPage() {
       </label>
 
       <fieldset className="space-y-3">
-        <legend className="font-semibold text-brand-800">Dates included in the pool</legend>
+        <legend className="font-extrabold text-ink">Dates included in the pool</legend>
         {tour.dates.map((date) => (
           <label
             key={date.id}
-            className="flex min-h-[44px] items-center justify-between rounded-lg border border-brand-200 bg-white p-4"
+            className="flex min-h-[44px] items-center gap-3 rounded-lg bg-white p-4 shadow-sm ring-1 ring-brand-200"
           >
-            <span>
-              <span className="block font-medium text-brand-900">
-                {date.city} · {date.day}
-              </span>
-              <span className="block text-sm text-brand-600">{date.venue}</span>
+            <DateBadge date={date} />
+            <span className="flex-1">
+              <span className="block font-bold text-ink">{date.city}</span>
+              <span className="block text-sm text-brand-700">{date.venue}</span>
             </span>
             <input
               type="checkbox"
@@ -58,8 +58,8 @@ export default function OrganiserSettingsPage() {
         ))}
       </fieldset>
 
-      <label className="flex min-h-[44px] items-center justify-between rounded-lg border border-brand-200 bg-white p-4">
-        <span className="font-medium text-brand-900">Lock pool to a single price tier</span>
+      <label className="flex min-h-[44px] items-center justify-between rounded-lg bg-white p-4 shadow-sm ring-1 ring-brand-200">
+        <span className="font-bold text-ink">Lock pool to a single price tier</span>
         <input
           type="checkbox"
           className="h-5 w-5 accent-brand-600"
@@ -71,7 +71,7 @@ export default function OrganiserSettingsPage() {
       </label>
 
       <div className="space-y-2">
-        <label htmlFor="cap" className="block font-semibold text-brand-800">
+        <label htmlFor="cap" className="block font-extrabold text-ink">
           Quantity cap per request
         </label>
         <select

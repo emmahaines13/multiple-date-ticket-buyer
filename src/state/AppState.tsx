@@ -64,6 +64,7 @@ type Action =
   | { type: 'REACH_FRONT' }
   | { type: 'CONFIRM_OFFER' }
   | { type: 'DECLINE_OFFER' }
+  | { type: 'PREVIOUS_OFFER' }
   | { type: 'SET_QUEUE_SPEED'; fast: boolean }
   | { type: 'SELL_OUT'; id: string }
   | { type: 'SELL_OUT_FAVOURITE' }
@@ -85,6 +86,17 @@ function nextAvailableIndex(
     if (availability[candidates[i]] !== 'soldout') return i
   }
   return candidates.length
+}
+
+function prevAvailableIndex(
+  candidates: string[],
+  startIndex: number,
+  availability: Record<string, Availability>,
+): number {
+  for (let i = startIndex; i >= 0; i--) {
+    if (availability[candidates[i]] !== 'soldout') return i
+  }
+  return -1
 }
 
 function reducer(state: AppState, action: Action): AppState {
@@ -142,6 +154,15 @@ function reducer(state: AppState, action: Action): AppState {
         ? [...state.buyer.declinedDateIds, candidates[state.buyer.offerIndex]]
         : state.buyer.declinedDateIds
       const offerIndex = nextAvailableIndex(candidates, state.buyer.offerIndex + 1, state.availability)
+      return { ...state, buyer: { ...state.buyer, offerIndex, declinedDateIds } }
+    }
+    case 'PREVIOUS_OFFER': {
+      const candidates = orderedCandidates(state.buyer)
+      const offerIndex = prevAvailableIndex(candidates, state.buyer.offerIndex - 1, state.availability)
+      if (offerIndex < 0) return state
+      const declinedDateIds = state.buyer.declinedDateIds.filter(
+        (id) => id !== candidates[offerIndex],
+      )
       return { ...state, buyer: { ...state.buyer, offerIndex, declinedDateIds } }
     }
     case 'SET_QUEUE_SPEED':
@@ -214,4 +235,17 @@ export function useAppDispatch() {
 
 export function orderedOfferCandidates(buyer: BuyerFlow): string[] {
   return orderedCandidates(buyer)
+}
+
+export function hasPreviousOffer(state: AppState): boolean {
+  const candidates = orderedCandidates(state.buyer)
+  return prevAvailableIndex(candidates, state.buyer.offerIndex - 1, state.availability) >= 0
+}
+
+export function hasNextOffer(state: AppState): boolean {
+  const candidates = orderedCandidates(state.buyer)
+  return (
+    nextAvailableIndex(candidates, state.buyer.offerIndex + 1, state.availability) <
+    candidates.length
+  )
 }
