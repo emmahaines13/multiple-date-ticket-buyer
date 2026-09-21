@@ -1,11 +1,13 @@
-# Flexible GA request — prototype
+# AXS — Flexible GA request (internal prototype)
 
 A clickable front-end prototype of a "buy GA for any of these dates" flow for
-multi-date tours. Built as the Part 2 build spec for a Senior Product Manager
-II application (Powered by TodayTix).
+multi-date tours, styled as an AXS product prototype.
 
-Fictional artist, fictional tour, no real ticketing brand. No backend, no
-payments, no accounts — everything lives in memory for the session.
+Fictional artist and tour (so it's safe to demo without a real on-sale in
+play). Branding, colours and layout are intentionally AXS's own. No backend,
+no real payments, no accounts, no real inventory — everything lives in
+memory for the session, and the payment screen is a fake checkout that never
+sends card details anywhere.
 
 ## Stack
 
@@ -25,7 +27,9 @@ Open the local URL Vite prints (defaults to http://localhost:5173).
 - **Buyer flow** (`/`): event page → flexible setup (tick dates, star a
   favourite, pick quantity) → single simulated queue → held offer on the
   favourite (or the next available date, with an explicit city-change
-  banner and one-tap confirm) → confirmation showing exactly one ticket set.
+  banner, back/forward navigation between offers, and one-tap confirm) →
+  fake payment/checkout screen → confirmation showing exactly one ticket
+  set as an e-ticket stub.
 - **Organiser settings** (`/organiser`): toggle flexible mode, choose which
   dates are pooled, lock to a single price tier, set the quantity cap.
   Changes here immediately change what the buyer setup screen offers.

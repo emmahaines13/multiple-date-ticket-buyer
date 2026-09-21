@@ -16,10 +16,10 @@ function TopNav() {
   return (
     <header className="bg-brand-900">
       <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-        <Link to="/" className="font-bold tracking-tight text-white">
-          Flexible GA Request
-          <span className="ml-2 rounded-full bg-brand-500 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
-            Prototype
+        <Link to="/" className="flex items-center gap-2">
+          <span className="text-2xl font-black italic tracking-tight text-white">axs</span>
+          <span className="hidden rounded-md bg-white/10 px-2 py-1 text-xs font-bold uppercase tracking-wide text-brand-100 ring-1 ring-white/20 sm:inline-block">
+            Flexible Request · Internal Prototype
           </span>
         </Link>
         <nav className="flex gap-2 rounded-full bg-brand-800 p-1 text-sm">
