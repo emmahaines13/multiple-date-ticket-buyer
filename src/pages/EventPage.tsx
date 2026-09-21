@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import { tour } from '../data/tour'
+import { formatListingDate, tour } from '../data/tour'
 import { useAppState } from '../state/AppState'
-import AvailabilityBadge from '../components/AvailabilityBadge'
-import DateBadge from '../components/DateBadge'
+import EventThumbnail from '../components/EventThumbnail'
+import HelpBubble from '../components/HelpBubble'
 
 export default function EventPage() {
   const state = useAppState()
@@ -11,15 +11,17 @@ export default function EventPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-sm font-bold uppercase tracking-wide text-brand-500">
-          General admission
-        </p>
         <h1 className="text-2xl font-extrabold text-ink">{tour.name}</h1>
-        <p className="text-brand-700">{tour.ticketType}</p>
+
+        <h2 className="mt-4 font-extrabold text-ink">Series Details</h2>
+        <p className="mt-1 text-brand-700">
+          Get your tickets to see {tour.name}. General admission, standing, {tour.priceGBP} per
+          ticket.
+        </p>
       </div>
 
       {state.organiser.flexibleEnabled && pooledDates.length > 1 && (
-        <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-brand-200">
+        <div className="rounded-lg bg-brand-50 p-4 ring-1 ring-brand-200">
           <h2 className="font-extrabold text-ink">Any of these dates</h2>
           <p className="mt-1 text-sm text-brand-700">
             Free on more than one night? Join a single queue for every date you'd attend and
@@ -36,35 +38,67 @@ export default function EventPage() {
       )}
 
       <div className="space-y-3">
-        <h2 className="font-extrabold text-ink">Choose a single date</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="font-extrabold text-ink">All Events</h2>
+          <div className="flex rounded-full bg-white p-1 text-xs font-bold ring-1 ring-brand-200">
+            <span className="rounded-full bg-brand-600 px-3 py-1 text-white">List View</span>
+            <span className="px-3 py-1 text-brand-500">Calendar</span>
+          </div>
+        </div>
+        <p className="text-sm text-brand-500">{tour.dates.length} Events</p>
+
         <ul className="space-y-3">
           {tour.dates.map((date) => {
             const availability = state.availability[date.id]
+            const soldOut = availability === 'soldout'
             return (
               <li
                 key={date.id}
-                className="flex items-center gap-3 rounded-lg bg-white p-4 shadow-sm ring-1 ring-brand-200"
+                className="flex items-center gap-3 rounded-lg bg-white p-3 shadow-sm ring-1 ring-brand-200"
               >
-                <DateBadge date={date} />
-                <div className="flex-1">
-                  <p className="font-bold text-ink">{date.city}</p>
-                  <p className="text-sm text-brand-700">{date.venue}</p>
+                <EventThumbnail label={tour.name} />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-bold text-ink">{formatListingDate(date)}</p>
+                  <p className="truncate font-bold text-ink">{tour.name}</p>
+                  <p className="text-sm text-brand-600">
+                    {date.venue}, {date.city}
+                  </p>
                 </div>
-                <div className="flex flex-col items-end gap-2">
-                  <AvailabilityBadge status={availability} />
+                {soldOut ? (
+                  <span className="shrink-0 text-sm font-extrabold text-red-600">SOLD OUT</span>
+                ) : (
                   <button
                     type="button"
-                    disabled={availability === 'soldout'}
-                    className="min-h-[44px] rounded-lg border-2 border-brand-600 px-4 py-2 text-sm font-bold text-brand-600 hover:bg-brand-50 disabled:border-brand-200 disabled:text-brand-300"
+                    className="min-h-[40px] shrink-0 rounded-full border-2 border-brand-600 px-4 text-sm font-bold text-brand-600 hover:bg-brand-50"
                   >
-                    Buy GA — £{tour.priceGBP}
+                    See Event
                   </button>
-                </div>
+                )}
               </li>
             )
           })}
         </ul>
       </div>
+
+      <div className="space-y-3">
+        <h2 className="font-extrabold text-ink">Event Dates & Times</h2>
+        <div className="rounded-lg bg-brand-50 p-4 ring-1 ring-brand-200">
+          <p className="text-xs font-bold uppercase tracking-wide text-brand-500">Doors Open</p>
+          <p className="font-semibold text-ink">
+            {formatListingDate(tour.dates[0])} onward, per date
+          </p>
+        </div>
+
+        <div>
+          <h2 className="font-extrabold text-ink">{tour.dates[0].venue}</h2>
+          <p className="text-brand-700">{tour.dates[0].city}</p>
+          <button type="button" className="mt-1 text-sm font-semibold text-brand-600 hover:underline">
+            Get Directions
+          </button>
+        </div>
+      </div>
+
+      <HelpBubble />
     </div>
   )
 }

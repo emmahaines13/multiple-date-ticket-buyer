@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import { tour } from '../data/tour'
+import { formatDate, tour } from '../data/tour'
 import { useAppDispatch, useAppState } from '../state/AppState'
-import AvailabilityBadge from '../components/AvailabilityBadge'
-import DateBadge from '../components/DateBadge'
+import HelpBubble from '../components/HelpBubble'
 
 export default function FlexibleSetupPage() {
   const state = useAppState()
@@ -25,53 +24,67 @@ export default function FlexibleSetupPage() {
 
       <fieldset className="space-y-3">
         <legend className="font-extrabold text-ink">
-          Which dates would you attend? {organiser.lockToSameTier && '(all £' + tour.priceGBP + ')'}
+          Available Offers{' '}
+          {organiser.lockToSameTier && (
+            <span className="font-normal text-brand-600">(all £{tour.priceGBP})</span>
+          )}
         </legend>
-        {pooledDates.map((date) => {
-          const checked = buyer.selectedDateIds.includes(date.id)
-          const isFavourite = buyer.favouriteId === date.id
-          const soldOut = availability[date.id] === 'soldout'
-          return (
-            <div
-              key={date.id}
-              className={`rounded-lg bg-white p-4 shadow-sm ring-1 ${
-                checked ? 'ring-2 ring-brand-500' : 'ring-brand-200'
-              } ${soldOut ? 'opacity-50' : ''}`}
-            >
-              <div className="flex items-center gap-3">
-                <label className="flex min-h-[44px] flex-1 items-center gap-3">
-                  <input
-                    type="checkbox"
-                    className="h-5 w-5 shrink-0 accent-brand-600"
-                    checked={checked}
-                    disabled={soldOut}
-                    onChange={() => dispatch({ type: 'TOGGLE_DATE', id: date.id })}
-                  />
-                  <DateBadge date={date} />
-                  <span>
-                    <span className="block font-bold text-ink">{date.city}</span>
-                    <span className="block text-sm text-brand-700">{date.venue}</span>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {pooledDates.map((date) => {
+            const checked = buyer.selectedDateIds.includes(date.id)
+            const isFavourite = buyer.favouriteId === date.id
+            const soldOut = availability[date.id] === 'soldout'
+            return (
+              <div
+                key={date.id}
+                className={`relative rounded-lg bg-white p-4 text-center shadow-sm ring-1 ${
+                  checked ? 'ring-2 ring-brand-500' : 'ring-brand-200'
+                } ${soldOut ? 'opacity-60' : ''}`}
+              >
+                {isFavourite && (
+                  <span
+                    className="absolute right-3 top-3 text-lg text-amber-500"
+                    aria-label="Favourite"
+                  >
+                    ★
                   </span>
-                </label>
-                <AvailabilityBadge status={availability[date.id]} />
+                )}
+                <p className="font-bold text-ink">{formatDate(date)}</p>
+                <p className="mt-1 text-sm text-brand-600">
+                  {date.city} · {date.venue}
+                </p>
+
+                {soldOut ? (
+                  <p className="mt-4 text-sm font-extrabold text-red-600">SOLD OUT</p>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => dispatch({ type: 'TOGGLE_DATE', id: date.id })}
+                      aria-pressed={checked}
+                      className={`mt-4 min-h-[44px] w-full rounded-full px-3 py-2 text-sm font-bold ${
+                        checked
+                          ? 'bg-brand-600 text-white'
+                          : 'border-2 border-brand-600 text-brand-600 hover:bg-brand-50'
+                      }`}
+                    >
+                      {checked ? 'Selected ✓' : 'Select'}
+                    </button>
+                    {checked && (
+                      <button
+                        type="button"
+                        onClick={() => dispatch({ type: 'SET_FAVOURITE', id: date.id })}
+                        className="mt-2 block w-full text-sm font-semibold text-brand-600 underline-offset-2 hover:underline"
+                      >
+                        {isFavourite ? 'Favourite' : 'Make favourite'}
+                      </button>
+                    )}
+                  </>
+                )}
               </div>
-              {checked && (
-                <button
-                  type="button"
-                  onClick={() => dispatch({ type: 'SET_FAVOURITE', id: date.id })}
-                  aria-pressed={isFavourite}
-                  className={`mt-3 min-h-[44px] w-full rounded-lg px-3 py-2 text-sm font-bold ${
-                    isFavourite
-                      ? 'bg-amber-400 text-ink'
-                      : 'border-2 border-brand-300 text-brand-700 hover:bg-brand-50'
-                  }`}
-                >
-                  {isFavourite ? '★ Favourite' : '☆ Make favourite'}
-                </button>
-              )}
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </fieldset>
 
       <div className="space-y-2">
@@ -117,6 +130,8 @@ export default function FlexibleSetupPage() {
       {!canEnterQueue && (
         <p className="text-sm text-brand-700">Tick at least one date to continue.</p>
       )}
+
+      <HelpBubble />
     </div>
   )
 }

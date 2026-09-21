@@ -7,6 +7,8 @@ export type TourDate = {
   weekday: string
   dayNum: string
   month: string
+  year: string
+  doorsTime: string
 }
 
 export type Tour = {
@@ -21,15 +23,19 @@ export const tour: Tour = {
   ticketType: 'General admission, standing',
   priceGBP: 65,
   dates: [
-    { id: 'glasgow-mon', city: 'Glasgow', venue: 'Ovo Hydro', weekday: 'Monday', dayNum: '12', month: 'Oct' },
-    { id: 'london-fri', city: 'London', venue: 'The O2', weekday: 'Friday', dayNum: '16', month: 'Oct' },
-    { id: 'london-sat', city: 'London', venue: 'The O2', weekday: 'Saturday', dayNum: '17', month: 'Oct' },
-    { id: 'amsterdam-mon', city: 'Amsterdam', venue: 'Ziggo Dome', weekday: 'Monday', dayNum: '19', month: 'Oct' },
+    { id: 'glasgow-mon', city: 'Glasgow', venue: 'Ovo Hydro', weekday: 'Monday', dayNum: '12', month: 'Oct', year: '2026', doorsTime: '18:30' },
+    { id: 'london-fri', city: 'London', venue: 'The O2', weekday: 'Friday', dayNum: '16', month: 'Oct', year: '2026', doorsTime: '18:30' },
+    { id: 'london-sat', city: 'London', venue: 'The O2', weekday: 'Saturday', dayNum: '17', month: 'Oct', year: '2026', doorsTime: '18:30' },
+    { id: 'amsterdam-mon', city: 'Amsterdam', venue: 'Ziggo Dome', weekday: 'Monday', dayNum: '19', month: 'Oct', year: '2026', doorsTime: '19:00' },
   ],
 }
 
 export function formatDate(date: TourDate): string {
   return `${date.weekday} ${date.dayNum} ${date.month}`
+}
+
+export function formatListingDate(date: TourDate): string {
+  return `${date.weekday.slice(0, 3).toUpperCase()} ${date.dayNum} ${date.month} ${date.year} - ${date.doorsTime}`
 }
 
 export const SERVICE_FEE_PER_TICKET = 8.5
