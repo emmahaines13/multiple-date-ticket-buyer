@@ -6,6 +6,7 @@ import EventPage from './pages/EventPage'
 import FlexibleSetupPage from './pages/FlexibleSetupPage'
 import QueuePage from './pages/QueuePage'
 import FrontOfQueuePage from './pages/FrontOfQueuePage'
+import PaymentPage from './pages/PaymentPage'
 import ConfirmationPage from './pages/ConfirmationPage'
 import OrganiserSettingsPage from './pages/OrganiserSettingsPage'
 
@@ -60,6 +61,7 @@ function AppShell() {
           <Route path="/flexible" element={<FlexibleSetupPage />} />
           <Route path="/queue" element={<QueuePage />} />
           <Route path="/offer" element={<FrontOfQueuePage />} />
+          <Route path="/payment" element={<PaymentPage />} />
           <Route path="/confirmation" element={<ConfirmationPage />} />
           <Route path="/organiser" element={<OrganiserSettingsPage />} />
         </Routes>

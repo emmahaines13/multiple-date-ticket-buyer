@@ -44,14 +44,14 @@ export default function FrontOfQueuePage() {
   }, [offeredDate])
 
   useEffect(() => {
-    if (buyer.status === 'confirmed') navigate('/confirmation')
+    if (buyer.status === 'payment') navigate('/payment')
   }, [buyer.status, navigate])
 
   const backButton = canGoBack && (
     <button
       type="button"
       onClick={() => dispatch({ type: 'PREVIOUS_OFFER' })}
-      className="min-h-[44px] w-full rounded-full border-2 border-brand-300 px-4 py-3 font-bold text-brand-700 hover:bg-brand-50"
+      className="min-h-[44px] w-full rounded-lg border-2 border-brand-300 px-4 py-3 font-bold text-brand-700 hover:bg-brand-50"
     >
       Back to previous option
     </button>
@@ -71,7 +71,7 @@ export default function FrontOfQueuePage() {
           <button
             type="button"
             onClick={() => navigate('/')}
-            className="min-h-[44px] w-full rounded-full bg-brand-600 px-4 py-2 font-bold text-white hover:bg-brand-700"
+            className="min-h-[44px] w-full rounded-lg bg-brand-600 px-4 py-2 font-bold text-white hover:bg-brand-700"
           >
             Back to event
           </button>
@@ -94,7 +94,7 @@ export default function FrontOfQueuePage() {
             <button
               type="button"
               onClick={() => dispatch({ type: 'DECLINE_OFFER' })}
-              className="min-h-[44px] w-full rounded-full bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700"
+              className="min-h-[44px] w-full rounded-lg bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700"
             >
               See next available date
             </button>
@@ -102,7 +102,7 @@ export default function FrontOfQueuePage() {
             <button
               type="button"
               onClick={() => dispatch({ type: 'DECLINE_OFFER' })}
-              className="min-h-[44px] w-full rounded-full bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700"
+              className="min-h-[44px] w-full rounded-lg bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700"
             >
               That was your last option — continue
             </button>
@@ -153,7 +153,7 @@ export default function FrontOfQueuePage() {
         <button
           type="button"
           onClick={() => dispatch({ type: 'CONFIRM_OFFER' })}
-          className="min-h-[44px] w-full rounded-full bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700"
+          className="min-h-[44px] w-full rounded-lg bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700"
         >
           Confirm this date
         </button>
@@ -161,7 +161,7 @@ export default function FrontOfQueuePage() {
           <button
             type="button"
             onClick={() => dispatch({ type: 'DECLINE_OFFER' })}
-            className="min-h-[44px] w-full rounded-full border-2 border-brand-300 px-4 py-3 font-bold text-brand-700 hover:bg-brand-50"
+            className="min-h-[44px] w-full rounded-lg border-2 border-brand-300 px-4 py-3 font-bold text-brand-700 hover:bg-brand-50"
           >
             Not this one — show me the next option
           </button>

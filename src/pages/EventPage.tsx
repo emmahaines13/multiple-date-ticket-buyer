@@ -28,7 +28,7 @@ export default function EventPage() {
           </p>
           <Link
             to="/flexible"
-            className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-full bg-brand-600 px-5 py-2 font-semibold text-white hover:bg-brand-700"
+            className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-brand-600 px-5 py-2 font-semibold text-white hover:bg-brand-700"
           >
             Choose your dates
           </Link>
@@ -55,7 +55,7 @@ export default function EventPage() {
                   <button
                     type="button"
                     disabled={availability === 'soldout'}
-                    className="min-h-[44px] rounded-full border-2 border-brand-600 px-4 py-2 text-sm font-bold text-brand-600 hover:bg-brand-50 disabled:border-brand-200 disabled:text-brand-300"
+                    className="min-h-[44px] rounded-lg border-2 border-brand-600 px-4 py-2 text-sm font-bold text-brand-600 hover:bg-brand-50 disabled:border-brand-200 disabled:text-brand-300"
                   >
                     Buy GA — £{tour.priceGBP}
                   </button>

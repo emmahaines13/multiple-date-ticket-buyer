@@ -8,7 +8,7 @@ export type OrganiserSettings = {
   quantityCap: number
 }
 
-export type OfferStatus = 'idle' | 'queued' | 'at-front' | 'confirmed'
+export type OfferStatus = 'idle' | 'queued' | 'at-front' | 'payment' | 'confirmed'
 
 export type BuyerFlow = {
   selectedDateIds: string[]
@@ -63,6 +63,7 @@ type Action =
   | { type: 'TICK_QUEUE' }
   | { type: 'REACH_FRONT' }
   | { type: 'CONFIRM_OFFER' }
+  | { type: 'COMPLETE_PAYMENT' }
   | { type: 'DECLINE_OFFER' }
   | { type: 'PREVIOUS_OFFER' }
   | { type: 'SET_QUEUE_SPEED'; fast: boolean }
@@ -145,8 +146,12 @@ function reducer(state: AppState, action: Action): AppState {
       const confirmedDateId = candidates[state.buyer.offerIndex] ?? null
       return {
         ...state,
-        buyer: { ...state.buyer, status: 'confirmed', confirmedDateId },
+        buyer: { ...state.buyer, status: 'payment', confirmedDateId },
       }
+    }
+    case 'COMPLETE_PAYMENT': {
+      if (state.buyer.status !== 'payment') return state
+      return { ...state, buyer: { ...state.buyer, status: 'confirmed' } }
     }
     case 'DECLINE_OFFER': {
       const candidates = orderedCandidates(state.buyer)

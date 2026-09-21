@@ -60,7 +60,7 @@ export default function FlexibleSetupPage() {
                   type="button"
                   onClick={() => dispatch({ type: 'SET_FAVOURITE', id: date.id })}
                   aria-pressed={isFavourite}
-                  className={`mt-3 min-h-[44px] w-full rounded-full px-3 py-2 text-sm font-bold ${
+                  className={`mt-3 min-h-[44px] w-full rounded-lg px-3 py-2 text-sm font-bold ${
                     isFavourite
                       ? 'bg-amber-400 text-ink'
                       : 'border-2 border-brand-300 text-brand-700 hover:bg-brand-50'
@@ -110,7 +110,7 @@ export default function FlexibleSetupPage() {
           dispatch({ type: 'ENTER_QUEUE' })
           navigate('/queue')
         }}
-        className="min-h-[44px] w-full rounded-full bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700 disabled:opacity-40"
+        className="min-h-[44px] w-full rounded-lg bg-brand-600 px-4 py-3 font-bold text-white hover:bg-brand-700 disabled:opacity-40"
       >
         Enter the queue
       </button>
