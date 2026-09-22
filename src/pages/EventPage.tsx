@@ -11,9 +11,9 @@ export default function EventPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-extrabold text-ink">{tour.name}</h1>
+        <h1 className="text-3xl font-extrabold leading-tight text-ink">{tour.name}</h1>
 
-        <h2 className="mt-4 font-extrabold text-ink">Series Details</h2>
+        <h2 className="mt-5 text-lg font-extrabold text-ink">Series Details</h2>
         <p className="mt-1 text-brand-700">
           Get your tickets to see {tour.name}. General admission, standing, {tour.priceGBP} per
           ticket.
@@ -39,7 +39,7 @@ export default function EventPage() {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="font-extrabold text-ink">All Events</h2>
+          <h2 className="text-lg font-extrabold text-ink">All Events</h2>
           <div className="flex rounded-full bg-white p-1 text-xs font-bold ring-1 ring-brand-200">
             <span className="rounded-full bg-brand-600 px-3 py-1 text-white">List View</span>
             <span className="px-3 py-1 text-brand-500">Calendar</span>
@@ -56,7 +56,7 @@ export default function EventPage() {
                 key={date.id}
                 className="flex items-center gap-3 rounded-lg bg-white p-3 shadow-sm ring-1 ring-brand-200"
               >
-                <EventThumbnail label={tour.name} />
+                <EventThumbnail />
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-bold text-ink">{formatListingDate(date)}</p>
                   <p className="truncate font-bold text-ink">{tour.name}</p>
@@ -81,7 +81,7 @@ export default function EventPage() {
       </div>
 
       <div className="space-y-3">
-        <h2 className="font-extrabold text-ink">Event Dates & Times</h2>
+        <h2 className="text-lg font-extrabold text-ink">Event Dates & Times</h2>
         <div className="rounded-lg bg-brand-50 p-4 ring-1 ring-brand-200">
           <p className="text-xs font-bold uppercase tracking-wide text-brand-500">Doors Open</p>
           <p className="font-semibold text-ink">
