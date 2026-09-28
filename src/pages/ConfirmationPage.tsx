@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { formatDate, formatMoney, orderTotal, tour } from '../data/tour'
+import { formatDate, formatMoney, tour } from '../data/tour'
 import { useAppState } from '../state/AppState'
 
 function BarcodeStrip() {
@@ -60,7 +60,9 @@ export default function ConfirmationPage() {
           <p className="mt-2 text-brand-700">
             {buyer.quantity} × GA ticket{buyer.quantity > 1 ? 's' : ''}
           </p>
-          <p className="mt-1 font-bold text-ink">Total paid: {formatMoney(orderTotal(buyer.quantity))}</p>
+          <p className="mt-1 font-bold text-ink">
+            Order total: {formatMoney(tour.priceGBP * buyer.quantity)}
+          </p>
         </div>
         <div className="relative border-t-2 border-dashed border-brand-200 p-5">
           <div

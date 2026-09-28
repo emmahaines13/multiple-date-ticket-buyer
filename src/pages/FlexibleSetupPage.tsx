@@ -74,7 +74,7 @@ export default function FlexibleSetupPage() {
                       <button
                         type="button"
                         onClick={() => dispatch({ type: 'SET_FAVOURITE', id: date.id })}
-                        className="mt-2 block w-full text-sm font-semibold text-brand-600 underline-offset-2 hover:underline"
+                        className="mt-2 flex min-h-[44px] w-full items-center justify-center text-sm font-semibold text-brand-600 underline-offset-2 hover:underline"
                       >
                         {isFavourite ? 'Favourite' : 'Make favourite'}
                       </button>

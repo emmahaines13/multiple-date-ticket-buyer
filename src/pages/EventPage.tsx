@@ -69,7 +69,7 @@ export default function EventPage() {
                 ) : (
                   <button
                     type="button"
-                    className="min-h-[40px] shrink-0 rounded-full border-2 border-brand-600 px-4 text-sm font-bold text-brand-600 hover:bg-brand-50"
+                    className="min-h-[44px] shrink-0 rounded-full border-2 border-brand-600 px-4 text-sm font-bold text-brand-600 hover:bg-brand-50"
                   >
                     See Event
                   </button>

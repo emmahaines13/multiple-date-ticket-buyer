@@ -38,15 +38,8 @@ export function formatListingDate(date: TourDate): string {
   return `${date.weekday.slice(0, 3).toUpperCase()} ${date.dayNum} ${date.month} ${date.year} - ${date.doorsTime}`
 }
 
-export const SERVICE_FEE_PER_TICKET = 8.5
-export const ORDER_PROCESSING_FEE = 4.25
-
 export function formatMoney(value: number): string {
   return `£${value.toFixed(2)}`
-}
-
-export function orderTotal(quantity: number): number {
-  return tour.priceGBP * quantity + SERVICE_FEE_PER_TICKET * quantity + ORDER_PROCESSING_FEE
 }
 
 export const initialAvailability: Record<string, Availability> = {
